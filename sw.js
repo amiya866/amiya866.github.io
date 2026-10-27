@@ -39,7 +39,7 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(request).then(cached => {
+    caches.match(request, { ignoreSearch: true }).then(cached => {
       const network = fetch(request).then(response => {
         if (response.ok) {
           const copy = response.clone();
