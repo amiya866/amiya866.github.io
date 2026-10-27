@@ -26,13 +26,13 @@ const ENTRIES = [
     keywords: '知识星球 小作文 分类 研报纪要 产业快讯 宏观外汇 权益策略 观点讨论 xingqiu zsxq'
   },
   {
-    id: 'xs-panel', title: '有色截面配置', kind: '策略', groups: ['metals', 'data'],
+    id: 'xs-panel', title: '有色截面配置', kind: '策略', groups: ['metals', 'strategy'],
     url: './metals-framework/xs-panel/', description: '六品种截面多空打分、日频信号与当前持仓。',
     tags: ['多空信号', '每日持仓', '策略'],
     keywords: '有色 截面 多空 配置 策略 信号 持仓 回测 cu al zn pb ni sn xs celue'
   },
   {
-    id: 'caibao', title: '财报入库平台', kind: '数据', groups: ['metals', 'data'],
+    id: 'caibao', title: '财报入库平台', kind: '财报', groups: ['metals', 'financials'],
     url: './caibao-hub/', description: '全球有色企业季度产量、公司指引与披露日历。',
     tags: ['季度产量', '公司指引', '披露日历'],
     keywords: '财报 产量 公司 企业 季报 年报 指引 披露 日历 铜 铝 锌 铅 镍 锡 锂 硅 caibao caiwu'
@@ -95,7 +95,8 @@ const ENTRIES = [
 
 const FILTER_TITLES = {
   all: '全部入口', favorites: '我的收藏', recent: '最近访问',
-  metals: '金属研究', macro: '宏观研究', data: '数据与策略'
+  metals: '金属研究', macro: '宏观研究', data: '数据查询',
+  financials: '财报与产量', strategy: '策略信号'
 };
 const STORAGE_KEYS = { favorites: 'research-hub-favorites', recent: 'research-hub-recent' };
 const validIds = new Set(ENTRIES.map(entry => entry.id));
@@ -177,7 +178,7 @@ function render() {
     return `<article class="entry-card${entry.featured ? ' featured' : ''}">
       <button class="favorite-button" type="button" data-favorite="${entry.id}" aria-label="${isFavorite ? '取消收藏' : '收藏'}${entry.title}" aria-pressed="${isFavorite}">${starIcon()}</button>
       <a class="entry-link" href="${entry.url}" data-entry="${entry.id}">
-        <div class="entry-top"><span class="entry-kind">${entry.kind}</span><span class="entry-group">${entry.groups.includes('macro') && !entry.groups.includes('metals') ? '宏观' : entry.groups.includes('data') ? '研究工具' : '有色研究'}</span></div>
+        <div class="entry-top"><span class="entry-kind">${entry.kind}</span><span class="entry-group">${entry.groups.includes('strategy') ? '策略信号' : entry.groups.includes('financials') ? '财报数据' : entry.groups.includes('data') ? '数据查询' : entry.groups.includes('macro') && !entry.groups.includes('metals') ? '宏观' : '有色研究'}</span></div>
         <h3>${entry.title}</h3>
         <p class="entry-description">${entry.description}</p>
         <div class="entry-bottom"><div class="entry-tags">${entry.tags.map(tag => `<span>${tag}</span>`).join('')}</div><span class="entry-arrow" aria-hidden="true">→</span></div>
